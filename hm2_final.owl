@@ -1,0 +1,813 @@
+@prefix : <http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/gabri/ontologies/2021/11/homework2> .
+
+<http://www.semanticweb.org/gabri/ontologies/2021/11/homework2> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasDifficult
+:hasDifficult rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:range :Difficult .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasFormat
+:hasFormat rdf:type owl:ObjectProperty ;
+           owl:inverseOf :isFormatOf ;
+           rdfs:domain :Book ;
+           rdfs:range :BookFormat .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasLanguage
+:hasLanguage rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             owl:inverseOf :isLanguageOf ;
+             rdfs:domain :Book ;
+             rdfs:range :BookLanguage .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasPublisher
+:hasPublisher rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              owl:inverseOf :isPublisherOf ;
+              rdfs:domain :Book ;
+              rdfs:range :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasTopic
+:hasTopic rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          owl:inverseOf :isTopicOf ;
+          rdfs:domain :Book ;
+          rdfs:range :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#isFormatOf
+:isFormatOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#isLanguageOf
+:isLanguageOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#isPublisherOf
+:isPublisherOf rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :BookPublisher ;
+               rdfs:range :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#isTopicOf
+:isTopicOf rdf:type owl:ObjectProperty ;
+           rdfs:domain :BookTopic ;
+           rdfs:range :Book .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasAuthor
+:hasAuthor rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasFiguresValue
+:hasFiguresValue rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasPublicationYear
+:hasPublicationYear rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasTitle
+:hasTitle rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hasTopicValue
+:hasTopicValue rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Adventure
+:Adventure rdf:type owl:Class ;
+           rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Architecture
+:Architecture rdf:type owl:Class ;
+              rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ArtBook
+:ArtBook rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :hasTopic ;
+                                                      owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                           owl:unionOf ( :Architecture
+                                                                                         :Cinema
+                                                                                         :Music
+                                                                                         :Painting
+                                                                                         :Sculpture
+                                                                                       )
+                                                                         ]
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ArtificialIntelligence
+:ArtificialIntelligence rdf:type owl:Class ;
+                        rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#AugmentedReality
+:AugmentedReality rdf:type owl:Class ;
+                  rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Book
+:Book rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasLanguage ;
+                        owl:someValuesFrom :BookLanguage
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasPublisher ;
+                        owl:someValuesFrom :BookPublisher
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopic ;
+                        owl:someValuesFrom :BookTopic
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasAuthor ;
+                        owl:someValuesFrom xsd:string
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasFiguresValue ;
+                        owl:someValuesFrom xsd:integer
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasPublicationYear ;
+                        owl:someValuesFrom xsd:integer
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTitle ;
+                        owl:someValuesFrom xsd:string
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopicValue ;
+                        owl:someValuesFrom xsd:integer
+                      ] ;
+      rdfs:comment "this class represent the entity book, the subclasses represent different categories of book" ;
+      rdfs:label "Book"^^xsd:string .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#BookFormat
+:BookFormat rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Class ;
+                                  owl:oneOf ( :Pocket_size
+                                              :Standard_size
+                                              :eBook
+                                            )
+                                ] ;
+            rdfs:comment "This class represent the different format of book, like ebook, standard size book and pocket sized book" ;
+            rdfs:label "BookFormat"^^xsd:string .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#BookLanguage
+:BookLanguage rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#BookPublisher
+:BookPublisher rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#BookTopic
+:BookTopic rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty :isTopicOf ;
+                             owl:someValuesFrom :Book
+                           ] .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ChildrenBook
+:ChildrenBook rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasFiguresValue ;
+                                                           owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                owl:onDatatype xsd:integer ;
+                                                                                owl:withRestrictions ( [ xsd:minInclusive 25
+                                                                                                       ]
+                                                                                                     )
+                                                                              ]
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ChildrenTale
+:ChildrenTale rdf:type owl:Class ;
+              rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Cinema
+:Cinema rdf:type owl:Class ;
+        rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ContemporaryBook
+:ContemporaryBook rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :hasPublicationYear ;
+                                                               owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                    owl:onDatatype xsd:integer ;
+                                                                                    owl:withRestrictions ( [ xsd:minInclusive 1945
+                                                                                                           ]
+                                                                                                         )
+                                                                                  ]
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Crime
+:Crime rdf:type owl:Class ;
+       rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Cryptocurrency
+:Cryptocurrency rdf:type owl:Class ;
+                rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Difficult
+:Difficult rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:unionOf ( :Easy
+                                               :Medium
+                                               :hard
+                                             )
+                               ] ;
+           rdfs:subClassOf :ValuePartition .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Easy
+:Easy rdf:type owl:Class ;
+      rdfs:subClassOf :Difficult .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#EnglishBook
+:EnglishBook rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasLanguage ;
+                                                          owl:hasValue :English
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Fantasy
+:Fantasy rdf:type owl:Class ;
+         rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#FictionBook
+:FictionBook rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasTopic ;
+                                                          owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                               owl:unionOf ( :Adventure
+                                                                                             :ChildrenTale
+                                                                                             :Crime
+                                                                                             :Fantasy
+                                                                                             :Horror
+                                                                                             :Love
+                                                                                             :Romance
+                                                                                             :Science
+                                                                                           )
+                                                                             ]
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Geography
+:Geography rdf:type owl:Class ;
+           rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Grammar
+:Grammar rdf:type owl:Class ;
+         rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#History
+:History rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :BookTopic
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :hasDifficult ;
+                                                      owl:someValuesFrom :Easy
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Horror
+:Horror rdf:type owl:Class ;
+        rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Love
+:Love rdf:type owl:Class ;
+      rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Maths
+:Maths rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :BookTopic
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :hasDifficult ;
+                                                    owl:someValuesFrom :Medium
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Medium
+:Medium rdf:type owl:Class ;
+        rdfs:subClassOf :Difficult .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#MobileDevelopment
+:MobileDevelopment rdf:type owl:Class ;
+                   rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ModernBook
+:ModernBook rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :hasPublicationYear ;
+                                                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                              owl:onDatatype xsd:integer ;
+                                                                              owl:withRestrictions ( [ xsd:minInclusive 1789
+                                                                                                     ]
+                                                                                                     [ xsd:maxExclusive 1945
+                                                                                                     ]
+                                                                                                   )
+                                                                            ]
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ;
+            rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#MultiTopicBook
+:MultiTopicBook rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :hasTopicValue ;
+                                                             owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                  owl:onDatatype xsd:integer ;
+                                                                                  owl:withRestrictions ( [ xsd:minInclusive 2
+                                                                                                         ]
+                                                                                                       )
+                                                                                ]
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#MultilangBook
+:MultilangBook rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasLanguage ;
+                                                            owl:minCardinality "2"^^xsd:nonNegativeInteger
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Music
+:Music rdf:type owl:Class ;
+       rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Painting
+:Painting rdf:type owl:Class ;
+          rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Philosophy
+:Philosophy rdf:type owl:Class ;
+            rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Physics
+:Physics rdf:type owl:Class ;
+         rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#PocketSizedBook
+:PocketSizedBook rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasFormat ;
+                                                              owl:hasValue :Pocket_size
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Romance
+:Romance rdf:type owl:Class ;
+         rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Science
+:Science rdf:type owl:Class ;
+         rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Sculpture
+:Sculpture rdf:type owl:Class ;
+           rdfs:subClassOf :BookTopic .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#StandardBook
+:StandardBook rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasFormat ;
+                                                           owl:hasValue :Standard_size
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#TechnologyBook
+:TechnologyBook rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :hasTopic ;
+                                                             owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                                  owl:unionOf ( :ArtificialIntelligence
+                                                                                                :AugmentedReality
+                                                                                                :Cryptocurrency
+                                                                                                :MobileDevelopment
+                                                                                              )
+                                                                                ]
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#TextBook
+:TextBook rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasTopic ;
+                                                       owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Geography
+                                                                                          :Grammar
+                                                                                          :History
+                                                                                          :Maths
+                                                                                          :Philosophy
+                                                                                          :Physics
+                                                                                        )
+                                                                          ]
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
+          rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ValuePartition
+:ValuePartition rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#eBook
+:eBook rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :Book
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :hasFormat ;
+                                                    owl:hasValue :eBook
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:subClassOf :Book .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#hard
+:hard rdf:type owl:Class ;
+      rdfs:subClassOf :Difficult .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Adelphi
+:Adelphi rdf:type owl:NamedIndividual ,
+                  :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Adventure
+:Adventure rdf:type owl:NamedIndividual ,
+                    :Adventure .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Architecture
+:Architecture rdf:type owl:NamedIndividual ,
+                       :Architecture .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Arrow
+:Arrow rdf:type owl:NamedIndividual ,
+                :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ArtificialIntelligence
+:ArtificialIntelligence rdf:type owl:NamedIndividual ,
+                                 :ArtificialIntelligence .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#AugmentedReality
+:AugmentedReality rdf:type owl:NamedIndividual ,
+                           :AugmentedReality .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Bompiani
+:Bompiani rdf:type owl:NamedIndividual ,
+                   :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Book1
+:Book1 rdf:type owl:NamedIndividual ,
+                :Book ;
+       :hasFormat :Standard_size ;
+       :hasPublisher :Bompiani ;
+       :hasTopic :ChildrenTale ,
+                 :Fantasy ;
+       :hasAuthor "Antoine de Saint Exupéry" ,
+                  "Ciccio" ;
+       :hasFiguresValue 30 ;
+       :hasPublicationYear 2016 ;
+       :hasTitle "Il piccolo principe" ;
+       :hasTopicValue 2 .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Book2
+:Book2 rdf:type owl:NamedIndividual ,
+                :Book ;
+       :hasLanguage :Italian ;
+       :hasPublisher :Bompiani ;
+       :hasTopic :Adventure ,
+                 :Fantasy ;
+       :hasAuthor "J. R. R. Tolkien" ;
+       :hasFiguresValue 5 ;
+       :hasPublicationYear 1954 ;
+       :hasTitle "Il signore degli anelli" ;
+       :hasTopicValue 2 .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Book3
+:Book3 rdf:type owl:NamedIndividual ,
+                :Book ;
+       :hasLanguage :English ;
+       :hasPublisher :CambridgeUniversity ;
+       :hasTopic :Grammar ;
+       :hasAuthor "Peter Lucantoni" ;
+       :hasFiguresValue 10 ;
+       :hasPublicationYear 2018 ;
+       :hasTitle "Cambrisge English" .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Book4
+:Book4 rdf:type owl:NamedIndividual ,
+                :Book ;
+       :hasFormat :Standard_size ;
+       :hasLanguage :Italian ;
+       :hasPublisher :CologneseEditrice ;
+       :hasTopic :Fantasy ,
+                 :Love ,
+                 :Romance ;
+       :hasAuthor "Dante Alighieri" ;
+       :hasFiguresValue 0 ;
+       :hasPublicationYear 1977 ;
+       :hasTitle "La Divina Comemdia" ;
+       :hasTopicValue 2 .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#CambridgeUniversity
+:CambridgeUniversity rdf:type owl:NamedIndividual ,
+                              :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#ChildrenTale
+:ChildrenTale rdf:type owl:NamedIndividual ,
+                       :ChildrenTale .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Cinema
+:Cinema rdf:type owl:NamedIndividual ,
+                 :Cinema .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#CologneseEditrice
+:CologneseEditrice rdf:type owl:NamedIndividual ,
+                            :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Crime
+:Crime rdf:type owl:NamedIndividual ,
+                :Crime .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Cryptocurrency
+:Cryptocurrency rdf:type owl:NamedIndividual ,
+                         :Cryptocurrency .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#English
+:English rdf:type owl:NamedIndividual ,
+                  :BookLanguage .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Fantasy
+:Fantasy rdf:type owl:NamedIndividual ,
+                  :Fantasy .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Geography
+:Geography rdf:type owl:NamedIndividual ,
+                    :Geography .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Grammar
+:Grammar rdf:type owl:NamedIndividual ,
+                  :Grammar .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Hachette
+:Hachette rdf:type owl:NamedIndividual ,
+                   :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#History
+:History rdf:type owl:NamedIndividual ,
+                  :History .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Horror
+:Horror rdf:type owl:NamedIndividual ,
+                 :Horror .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Italian
+:Italian rdf:type owl:NamedIndividual ,
+                  :BookLanguage .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Love
+:Love rdf:type owl:NamedIndividual ,
+               :Love .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Maths
+:Maths rdf:type owl:NamedIndividual ,
+                :Maths .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#MobileDevelopment
+:MobileDevelopment rdf:type owl:NamedIndividual ,
+                            :MobileDevelopment .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Mondadori
+:Mondadori rdf:type owl:NamedIndividual ,
+                    :BookPublisher .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Music
+:Music rdf:type owl:NamedIndividual ,
+                :Music .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Paninting
+:Paninting rdf:type owl:NamedIndividual ,
+                    :Painting .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Philosophy
+:Philosophy rdf:type owl:NamedIndividual ,
+                     :Philosophy .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Physics
+:Physics rdf:type owl:NamedIndividual ,
+                  :Physics .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Pocket_size
+:Pocket_size rdf:type owl:NamedIndividual ,
+                      :BookFormat .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Romance
+:Romance rdf:type owl:NamedIndividual ,
+                  :Romance .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Science
+:Science rdf:type owl:NamedIndividual ,
+                  :Science .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Sculpture
+:Sculpture rdf:type owl:NamedIndividual ,
+                    :Sculpture .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#Standard_size
+:Standard_size rdf:type owl:NamedIndividual ,
+                        :BookFormat .
+
+
+###  http://www.semanticweb.org/gabri/ontologies/2021/11/homework2#eBook
+:eBook rdf:type owl:NamedIndividual ,
+                :BookFormat .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :PocketSizedBook
+                :StandardBook
+                :eBook
+              )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Pocket_size
+                        :Standard_size
+                        :eBook
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
